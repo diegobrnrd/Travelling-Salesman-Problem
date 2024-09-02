@@ -21,22 +21,10 @@ def vizinho_mais_proximo(coordenadas):
 
     # Itera sobre o número de cidades menos uma vez, pois a cidade inicial já está no percurso.
     for k in range(1, len(coordenadas)):
-        cidade_mais_proxima = None
-        menor_distancia = float("inf")
+        i = cidades.index(cidade_atual)
+        cidades[i] = 0
 
-        # Remove a cidade atual da lista de cidades a serem visitadas.
-        cidades.remove(cidade_atual)
-
-        # Calcula a distância para cada cidade não visitada e encontra a mais próxima.
-        for cidade in cidades:
-            x1, y1 = coordenadas[cidade_atual]
-            x2, y2 = coordenadas[cidade]
-            distancia = calcular_distancia(x1, y1, x2, y2)
-
-            # Atualiza a cidade mais próxima e a menor distância encontrada.
-            if distancia < menor_distancia:
-                cidade_mais_proxima = cidade
-                menor_distancia = distancia
+        cidade_mais_proxima, menor_distancia = encontrar_cidade_mais_proxima(cidade_atual, cidades, coordenadas)
 
         # Adiciona a cidade mais próxima ao percurso e atualiza a distância total.
         percurso[k] = cidade_mais_proxima
@@ -52,6 +40,27 @@ def vizinho_mais_proximo(coordenadas):
 
     # Retorna o percurso completo e a distância total percorrida.
     return percurso, distancia_total
+
+
+def encontrar_cidade_mais_proxima(cidade_atual, cidades, coordenadas):
+    """Encontra a cidade mais próxima e a distância para a cidade atual."""
+    cidade_mais_proxima = None
+    menor_distancia = float("inf")
+
+    # Calcula a distância para cada cidade não visitada e encontra a mais próxima.
+    for cidade in cidades:
+        if cidade == 0:
+            continue
+        x1, y1 = coordenadas[cidade_atual]
+        x2, y2 = coordenadas[cidade]
+        distancia = calcular_distancia(x1, y1, x2, y2)
+
+        # Atualiza a cidade mais próxima e a menor distância encontrada.
+        if distancia < menor_distancia:
+            cidade_mais_proxima = cidade
+            menor_distancia = distancia
+
+    return cidade_mais_proxima, menor_distancia
 
 
 def calcular_distancia(x1, y1, x2, y2):
