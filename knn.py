@@ -12,7 +12,7 @@ def ler_arquivo():
 def vizinho_mais_proximo(coordenadas):
     """Implementa o algoritmo do vizinho mais próximo."""
     cidades = list(coordenadas.keys())
-    cidade_inicial = choice(cidades)
+    cidade_inicial = randint(1, 52)
     cidade_atual = cidade_inicial
 
     percurso = [-1] * (len(coordenadas) + 1)
@@ -91,7 +91,7 @@ def funcao_central():
 
 if __name__ == '__main__':
     """Cronometra o tempo necessário para a execução do algoritmo."""
-    from random import choice
+    from random import randint
     import timeit
     tempo_de_execucao = timeit.timeit(funcao_central, number=1)
     print(f'\nTempo de execução: {tempo_de_execucao:.6f} segundos.')
