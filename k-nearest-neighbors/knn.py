@@ -1,11 +1,13 @@
+from random import randint
+
+
 def ler_arquivo():
     """Coleta as coordenadas e as armazena em um dicionário."""
+    coordenadas = {}
     with open('berlin52.tsp', 'r') as arquivo:
-        coordenadas = {}
         for linha in arquivo.readlines()[6:58]:
             cidade, x, y = linha.strip().split()
             coordenadas[int(cidade)] = (float(x), float(y))
-
     return coordenadas
 
 
@@ -80,18 +82,20 @@ def raiz_quadrada(x, x0, e):
 
 
 def funcao_central():
+    """Função central que gerencia a chamada de todas as outras funções."""
     coordenadas = ler_arquivo()
     percurso, distancia = vizinho_mais_proximo(coordenadas)
+
+    print(f'\nTour:\n')
 
     for c in percurso:
         print(c)
 
-    print(f'\n{int(distancia)}')
+    print(f'\nDistância: {int(distancia)}')
 
 
 if __name__ == '__main__':
     """Cronometra o tempo necessário para a execução do algoritmo."""
-    from random import randint
     import timeit
     tempo_de_execucao = timeit.timeit(funcao_central, number=1)
     print(f'\nTempo de execução: {tempo_de_execucao:.6f} segundos.')
