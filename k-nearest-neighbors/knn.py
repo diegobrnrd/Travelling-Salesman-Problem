@@ -1,4 +1,5 @@
-from random import randint
+import random
+random.seed(33)
 
 
 def ler_arquivo():
@@ -14,7 +15,7 @@ def ler_arquivo():
 def vizinho_mais_proximo(coordenadas):
     """Implementa o algoritmo do vizinho mais próximo."""
     cidades = list(coordenadas.keys())
-    cidade_inicial = randint(1, 52)
+    cidade_inicial = random.randint(1, 52)
     cidade_atual = cidade_inicial
 
     percurso = [-1] * (len(coordenadas) + 1)
@@ -81,21 +82,25 @@ def raiz_quadrada(x, x0, e):
         return raiz_quadrada(x, ((x0 ** 2 + x) / (2 * x0)), e)
 
 
+def gravar_resultado(percurso=None, distancia=None, tempo=None, senha=0):
+    with open('resultado.txt', 'a') as arquivo:
+        if senha == 0:
+            arquivo.write(f'Percurso: {percurso}\n')
+            arquivo.write(f'Distancia: {int(distancia)}\n')
+        else:
+            arquivo.write(f'Tempo: {tempo:.6f}\n\n')
+
+
 def funcao_central():
     """Função central que gerencia a chamada de todas as outras funções."""
     coordenadas = ler_arquivo()
     percurso, distancia = vizinho_mais_proximo(coordenadas)
-
-    print(f'\nTour:\n')
-
-    for c in percurso:
-        print(c)
-
-    print(f'\nDistância: {int(distancia)}')
+    gravar_resultado(percurso=percurso, distancia=distancia)
 
 
 if __name__ == '__main__':
     """Cronometra o tempo necessário para a execução do algoritmo."""
     import timeit
-    tempo_de_execucao = timeit.timeit(funcao_central, number=1)
-    print(f'\nTempo de execução: {tempo_de_execucao:.6f} segundos.')
+    for _ in range(30):
+        tempo_de_execucao = timeit.timeit(funcao_central, number=1)
+        gravar_resultado(tempo=tempo_de_execucao, senha=1)
