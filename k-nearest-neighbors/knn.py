@@ -1,3 +1,6 @@
+"""berlin52 - KNN"""
+
+
 import random
 random.seed(33)
 
@@ -83,7 +86,8 @@ def raiz_quadrada(x, x0, e):
 
 
 def gravar_resultado(percurso=None, distancia=None, tempo=None, senha=0):
-    with open('resultado.txt', 'a') as arquivo:
+    """Grava informações sobre um percurso em um arquivo de texto chamado 'resultado.txt'."""
+    with open('resultado_2.txt', 'w') as arquivo:
         if senha == 0:
             arquivo.write(f'Percurso: {percurso}\n')
             arquivo.write(f'Distancia: {int(distancia)}\n')
