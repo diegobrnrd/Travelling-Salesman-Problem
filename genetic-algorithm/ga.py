@@ -72,14 +72,6 @@ def selecao_torneio(solucoes, listapontos):
 
     return paivencedor1, paivencedor2
 
-def selecao_roleta(solucoes, vagas, listapontos):
-    fitnesses = [1 / calcular_distancia_solucao(individuo, listapontos) for individuo in solucoes]
-    total_fitness_inverso = sum(fitnesses)
-    probabilidades = [fitness / total_fitness_inverso for fitness in fitnesses]
-    individuos_selecionados = random.choices(solucoes, weights=probabilidades, k=vagas)
-
-    return individuos_selecionados
-
 def crossover(pai1, pai2):
     ponto_de_corte = random.randint(2, len(pai1) - len(pai1) // 4)
     pai1clone = pai1[:]
@@ -144,16 +136,6 @@ def renovar_pop_torneio(pop_atual, tamanho_pop, coordenadas_pontos, taxa_de_muta
         pop_atual[individuo + 1] = pop_atual[escolhidos[individuo + 1]]
         pop_atual[individuo + tamanho_pop // 2] = mutacao(novos_filhos[0], taxa_de_mutacao)
         pop_atual[individuo + (tamanho_pop // 2) + 1] = mutacao(novos_filhos[1], taxa_de_mutacao)
-
-def renovar_pop_roleta(pop_atual, tamanho_pop, coordenadas_pontos, taxa_de_mutacao):
-    escolhidos = selecao_roleta(pop_atual, tamanho_pop // 2, coordenadas_pontos)
-    for individuo in range(0, len(escolhidos), 2):
-        if random.random() < 0.9:
-            novos_filhos = gerar_filhos(escolhidos[individuo], escolhidos[individuo + 1])
-            pop_atual[individuo] = escolhidos[individuo]
-            pop_atual[individuo + 1] = escolhidos[individuo + 1]
-            pop_atual[individuo + tamanho_pop // 2] = mutacao(novos_filhos[0], taxa_de_mutacao)
-            pop_atual[individuo + (tamanho_pop // 2) + 1] = mutacao(novos_filhos[1], taxa_de_mutacao)
 
 def menor_solucao(pop, coords):
     tamanhos_populacao_final = [calcular_distancia_solucao(solu, coords) for solu in pop]
