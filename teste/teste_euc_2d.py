@@ -13,7 +13,6 @@ def raiz_quadrada(x, x0, e):
         return raiz_quadrada(x, ((x0 ** 2 + x) / (2 * x0)), e)
 
 def funcao_principal():
-    """Função central que gerencia a chamada de todas as outras funções."""
     a = (1, 2)
     b = (4, 6)
     c = (5, 1)
