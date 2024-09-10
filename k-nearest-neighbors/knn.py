@@ -66,6 +66,7 @@ def encontrar_cidade_mais_proxima(cidade_atual, cidades, coordenadas):
             cidade_mais_proxima = cidade
             menor_distancia = distancia
 
+    # Retorna a cidade mais próxima e a distância para a atual.
     return cidade_mais_proxima, menor_distancia
 
 
@@ -86,8 +87,8 @@ def raiz_quadrada(x, x0, e):
 
 
 def gravar_resultado(percurso=None, distancia=None, tempo=None, senha=0):
-    """Grava informações sobre um percurso em um arquivo de texto chamado 'resultado.txt'."""
-    with open('resultado_2.txt', 'w') as arquivo:
+    """Grava informações sobre um percurso em um arquivo de texto."""
+    with open('resultado2.txt', 'w') as arquivo:
         if senha == 0:
             arquivo.write(f'Percurso: {percurso}\n')
             arquivo.write(f'Distancia: {int(distancia)}\n')
